@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "sourceMap": true
+  },
+  "compileOnSave": true,
+  "exclude": ["node_modules", "dist", "src/**/*.test.*"]
+}

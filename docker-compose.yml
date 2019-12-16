@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  compiler:
+    image: node:alpine
+    container_name: compiler
+    volumes:
+      - ./:/home/app
+    working_dir: /home/app
+    command: sh -c "npm i && npm run compile-watch"
+  api:
+    image: node
+    container_name: api
+    volumes:
+      - ./:/home/app
+    working_dir: /home/app/dist
+    command: sh -c "npm run dev"
+    networks:
+      api:
+        ipv4_address: 170.41.0.12
+  mysql:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    expose:
+      - 3306
+    networks:
+      api:
+        ipv4_address: 170.41.0.13
+
+networks:
+  api:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv4: 'true'
+    ipam:
+      driver: default
+      config:
+        - subnet: 170.41.0.0/16
