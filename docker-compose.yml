@@ -23,6 +23,9 @@ services:
     container_name: database
     environment:
       MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - ./etc/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./database/DUMP.sql:/docker-entrypoint-initdb.d
     expose:
       - 3306
     networks:
